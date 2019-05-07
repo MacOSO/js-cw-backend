@@ -1,51 +1,25 @@
-const Koa = require('koa'),
-    app = new Koa(),
-    views = require('koa-views'),
-    json = require('koa-json'),
-    onerror = require('koa-onerror'),
-    mongoose = require('mongoose'),
-    bodyparser = require('koa-bodyparser'),
-    logger = require('koa-logger');
+const express = require('express'),
+    path = require('path'),
+    cookieParser = require('cookie-parser'),
+    logger = require('morgan'),
+    mongoose = require('mongoose');
 
-const index = require('./routes/index');
-const users = require('./routes/users');
-
-const mongoURI = process.env.MONGO_URI;
+const mongoURI = 'mongodb://admin:dinamit666@ds151586.mlab.com:51586/cw-store';
 
 mongoose.connect(mongoURI, {useNewUrlParser: true}, function(err) {
-  if(err != null) console.log('Error:\n' + err);
+    if(err != null) console.log('Error:\n' + err);
 });
 
-// error handler
-onerror(app);
+let productsRouter = require('./app/products');
 
-// middlewares
-app.use(bodyparser({
-  enableTypes:['json', 'form', 'text']
-}));
-app.use(json());
-app.use(logger());
-app.use(require('koa-static')(__dirname + '/public'));
+let app = express();
 
-app.use(views(__dirname + '/views', {
-  extension: 'pug'
-}));
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
-// logger
-app.use(async (ctx, next) => {
-  const start = new Date();
-  await next();
-  const ms = new Date() - start;
-  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
-});
-
-// routes
-app.use(index.routes(), index.allowedMethods());
-app.use(users.routes(), users.allowedMethods());
-
-// error-handling
-app.on('error', (err, ctx) => {
-  console.error('server error', err, ctx);
-});
+app.use('/', productsRouter);
 
 module.exports = app;
