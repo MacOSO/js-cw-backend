@@ -32,11 +32,6 @@ let gameSchema = new Schema({
         enum : ['Ролевая', 'Стратегия', 'Казуальная', 'Экшен', 'Приключение', 'Симулятор', null],
         default: null
     },
-    os: {
-        type: String,
-        enum : ['Windows', 'Linux', 'MacOS', null],
-        default: null
-    },
     online: {
         type: String,
         enum : ['Кооператив', 'MMO', 'Мультиплеер', null],

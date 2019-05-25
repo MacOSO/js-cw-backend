@@ -2,7 +2,7 @@ let express = require('express');
 let router = express.Router();
 let ctrl = require('./controller');
 
-/* GET all games */
+/* GET all files */
 router.get('/games', ctrl.getAllGames);
 
 /* Upload endpoint */

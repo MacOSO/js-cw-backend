@@ -1,7 +1,7 @@
 const Games = require('./model');
 const ObjectId = require('mongoose').Types.ObjectId;
 
-exports.getAllGames = (limit, offset) => Games.find({}).skip(offset).limit(limit);
+exports.getAllGames = () => Games.find({});
 
 exports.insertGame = (game) => Games.create(
     {
