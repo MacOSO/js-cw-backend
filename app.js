@@ -12,6 +12,7 @@ mongoose.connect(mongoURI, {useNewUrlParser: true}, function(err) {
 });
 
 let gamesRouter = require('./app/games');
+let usersRouter = require('./app/users');
 
 let app = express();
 
@@ -23,5 +24,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', gamesRouter);
+app.use('/users', usersRouter);
 
 module.exports = app;
