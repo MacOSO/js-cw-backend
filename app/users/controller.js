@@ -6,8 +6,17 @@ exports.getAllUsers = async (req, res) => {
 };
 
 exports.getUserById = async (req, res) => {
-    let id = req.params.id;
+    let id = req.params._id;
     const data = await repository.getUserById(id);
+    return res.send({data: data});
+};
+
+exports.authUser = async (req, res) => {
+    let login = req.body.login;
+    let password = req.body.password;
+    console.log(req.body.login); console.log(password);
+    const data = await repository.authUser(login, password);
+    console.log(data);
     return res.send({data: data});
 };
 
