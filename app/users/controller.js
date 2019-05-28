@@ -21,8 +21,8 @@ exports.authUser = async (req, res) => {
 };
 
 exports.createUser = async (req, res) => {
-    if(req.params.login !== undefined && req.params.password !== undefined) {
-        let user = {login: req.params.login, password: req.params.password};
+    if(req.body.login !== undefined && req.body.password !== undefined) {
+        let user = {login: req.body.login, password: req.body.password};
         const data = await repository.createUser(user);
         return res.send({data: data});
     }
