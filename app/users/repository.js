@@ -3,7 +3,7 @@ const ObjectId = require('mongoose').Types.ObjectId;
 
 exports.getAllUsers = () => Users.find({});
 
-exports.authUser = (login, password) => Users.find({login: login, password: password});
+exports.authUser = (login, password) => Users.findOne({login: login, password: password}, {__v: 0});
 
 exports.getUserById = (_id) => Users.findById(_id);
 
