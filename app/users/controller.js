@@ -27,10 +27,14 @@ exports.authUser = async (req, res) => {
 };
 
 exports.createUser = async (req, res) => {
-    if(req.body.login !== undefined && req.body.password !== undefined) {
+    const login = await repository.checkUserExists(req.body.login);
+    //console.log("Результат по запросу логина " + req.body.login +"\n" + login);
+    //console.log(login.length === 0 ? "Пользователя не существует" : "Пользователь существует");
+    if(req.body.login !== undefined && req.body.password !== undefined && login.length === 0) {
         let user = {login: req.body.login, password: req.body.password};
         const data = await repository.createUser(user);
         return res.send({data: data});
+    } else {
+        return res.send({message: "Error", data: null});
     }
-    return res.send({message: "Error", data: null});
 };

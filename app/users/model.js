@@ -1,5 +1,6 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
+// let uniqueValidator = require('mongoose-unique-validator');
 
 let userSchema = new Schema({
     login: {
@@ -28,4 +29,5 @@ let userSchema = new Schema({
         versionKey: false
     });
 
+// userSchema.plugin(uniqueValidator, {message: 'is already taken.'});
 module.exports = mongoose.model('users', userSchema);
