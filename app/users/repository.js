@@ -7,6 +7,8 @@ exports.authUser = (login, password) => Users.findOne({login: login, password: p
 
 exports.getUserById = (_id) => Users.findById(_id);
 
+exports.getLibraryByUserId = (_id) => Users.findById({_id: _id}, {balance: 0, isAdmin: 0, _id: 0, login: 0, password: 0, __v: 0});
+
 exports.createUser = (user) => Users.create(
     {
         _id: new ObjectId,

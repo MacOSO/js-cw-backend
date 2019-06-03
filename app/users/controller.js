@@ -11,6 +11,12 @@ exports.getUserById = async (req, res) => {
     return res.send({data: data});
 };
 
+exports.getLibraryByUserId = async (req, res) => {
+    let id = req.params._id;
+    const data = await repository.getLibraryByUserId(id);
+    return res.send({data: data});
+};
+
 exports.authUser = async (req, res) => {
     let login = req.body.login;
     let password = req.body.password;
