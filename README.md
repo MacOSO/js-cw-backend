@@ -13,7 +13,7 @@
 
 ## Документация
 
-API - [blur.tech/js-cw-backend](https://blur.tech/js-cw-backend/)
+API - [blur.tech/js-cw-backend](https://macoso.blur.tech/js-cw-backend/)
 
 ## План деплоя
 
