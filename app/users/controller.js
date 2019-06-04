@@ -12,7 +12,20 @@ const gameRef = async (data) => {
     return data;
 };
 
-// TODO: пополнение счёта пользователя
+exports.refill = async (req, res) => {
+    let userId = req.body.userId;
+    let amount = req.body.amount;
+    //console.log(userId);
+    //console.log(amount);
+    if (userId === undefined || amount === undefined) return res.send({message: "Amount or userId is empty"});
+    let oldBalance = await repository.getBalanceByUserId(userId);
+    //console.log(oldBalance);
+    if (!oldBalance) return res.status(404).send({message: "User not found"});
+    if (amount < 0) return res.send({message: "Wrong refill amount"});
+    const data = await repository.debit(userId, oldBalance.balance + amount);
+    //console.log(data);
+    return res.send({data: data});
+};
 
 exports.getAllUsers = async (req, res) => {
     const data = await repository.getAllUsers();
