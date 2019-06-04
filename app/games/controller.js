@@ -12,24 +12,29 @@ function find(array, value) {
 
 // TODO: поиск по играм по критериям: thematics, genres, online
 
-exports.buyGame = async (req, res, next) => {
-    const gameId = req.params.id;
-    const userId = req.body._id;
-    console.log(gameId);
-    console.log(userId);
-    if (gameId == undefined || userId == undefined) {
-        res.status(400).send({message: "User or game Id is empty"});
-        //next();
+exports.buyGame = async (req, res) => {
+    const gameId = req.body.gameId;
+    const userId = req.body.userId;
+    // console.log(gameId);
+    // console.log(userId);
+    if (gameId === undefined || userId === undefined) {
+        return res.status(400).send({message: "User or game Id is empty"});
     }
     const curLib = await usersRepository.getLibraryByUserId(userId);
+    if (curLib === null) {
+        return res.status(404).send({message: "User not found"});
+    }
     if (find(curLib.library, gameId)) {
-        res.status(409).send({message: "The game was purchased earlier"});
+        return res.status(409).send({message: "The game was purchased earlier"});
     }
     const game = await repository.getGameById(gameId);
+    if (game === null) {
+        return res.status(404).send({message: "Game not found"});
+    }
     const user = await usersRepository.getBalanceByUserId(userId);
     const newBalance = user.balance - game.price;
     if (newBalance < 0) {
-        res.status(402).send({message: "Not enough money"});
+        return res.status(402).send({message: "Not enough money"});
     }
     await usersRepository.debit(userId, newBalance);
     // console.log("old balance" + user.balance);
@@ -37,7 +42,7 @@ exports.buyGame = async (req, res, next) => {
     await usersRepository.addGameToLibrary(userId, gameId);
     const data = await usersRepository.getUserById(userId);
     // console.log(data);
-    res.send({message: "Game has been purchased", data: data})
+    return res.send({message: "Game has been purchased", data: data})
 };
 
 exports.getAllGames = async (req, res) => {

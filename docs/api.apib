@@ -14,7 +14,7 @@ HOST: http://api.cw-backend.blur.tech
 
         {"data":[{"download_link":{"linux":null,"macOS":null,"windows":"/files/witcher3.txt"},"photo":"/images/witcher3.png","thematics":["Открытый мир","Ролевая игра","Глубокий сюжет"],"genre":"Ролевая","online":null,"_id":"5cd52869fec3f9b504179f90","name":"The Witcher® 3: Wild Hunt","price":1119,"description":"Когда в Северных королевствах бушует война, вы заключаете величайший контракт своей жизни — отыскать Дитя предназначения, живое оружие, которое может изменить облик мира."},{"download_link":{"linux":null,"macOS":null,"windows":"/files/witcher2.txt"},"photo":"/images/witcher2.png","thematics":["Открытый мир","Ролевая игра","Глубокий сюжет"],"genre":"Ролевая","online":null,"_id":"5ce56188fec3f9b50404c5d0","name":"The Witcher® 2: Assassins of Kings","price":1119,"description":"Пришло время невиданного хаоса. Могущественные силы сталкиваются в борьбе за власть и величие. Северные королевства готовятся к войне. Но даже армии не могут помешать этому заговору, и прольётся кровь…"}]}
 
-### Получить игру по id [GET/{id}]
+### Получить игру по id [GET/games/{id}]
 Возвращает игру по id
 
 + Parameters
@@ -24,16 +24,14 @@ HOST: http://api.cw-backend.blur.tech
 
         {"data":{"download_link":{"linux":null,"macOS":null,"windows":"/files/witcher3.txt"},"photo":"/images/witcher3.png","thematics":["Открытый мир","Ролевая игра","Глубокий сюжет"],"genre":"Ролевая","online":null,"_id":"5cd52869fec3f9b504179f90","name":"The Witcher® 3: Wild Hunt","price":1119,"description":"Когда в Северных королевствах бушует война, вы заключаете величайший контракт своей жизни — отыскать Дитя предназначения, живое оружие, которое может изменить облик мира."}}
 
-### Купить игру [POST/buy/{id}]
+### Купить игру [POST/games/buy/]
 Совершается покупка игры. Списание со счёта цены игры. Проверка куплена ли игра ранее.
-
-+ Parameters
-    + id (string, required) - id игры
 
 + Request 200 (application/json)
 
         {
-            "_id": "5cf50bda42515b00177e830a"
+            "userId": "5cf50bda42515b00177e830a",
+            "gameId": "5cd52869fec3f9b504179f90"
         }
 
 + Response 200 (application/json)
@@ -64,6 +62,18 @@ HOST: http://api.cw-backend.blur.tech
             "message": "Not enough money"
         }
 
++ Response 404 (application/json)
+
+        {
+            "message": "Game not found"
+        }
+
++ Response 404 (application/json)
+
+        {
+            "message": "User not found"
+        }
+
 + Response 409 (application/json)
 
         {
@@ -74,7 +84,7 @@ HOST: http://api.cw-backend.blur.tech
 
 ### Пользователи [/users]
 
-### Получить пользователя по id [GET/{id}]
+### Получить пользователя по id [GET/users/{id}]
 Возвращает всех пользователей массивом объектов
 
 + Parameters
@@ -113,7 +123,7 @@ HOST: http://api.cw-backend.blur.tech
                  }
         }
 
-### Авторизация [POST/auth]
+### Авторизация [POST/users/auth]
 Принимает на вход логин и пароль, если логин и пароль верны возвращает данные пользователя
 
 + Request 200 (application/json)
@@ -138,7 +148,7 @@ HOST: http://api.cw-backend.blur.tech
                  }
         }
 
-### Регистрация [POST/reg]
+### Регистрация [POST/users/reg]
 Принимает на вход логин и пароль и если пользователя с таким логином не существует, то регистрирует его
 
 + Request 200 (application/json)
@@ -168,7 +178,7 @@ HOST: http://api.cw-backend.blur.tech
             "data": null
         }
 
-### Библиотека пользователя [GET/library/{id}]
+### Библиотека пользователя [GET/users/library/{id}]
 Возвращает массив купленных пользователем игр
 
 + Parameters

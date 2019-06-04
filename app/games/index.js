@@ -4,15 +4,13 @@ let ctrl = require('./controller');
 
 // TODO: get /search?q=
 
-// TODO: get /games/:id/buy JSON: {user_id: blah}
-
 /* GET all files */
 router.get('/', ctrl.getAllGames);
 
 /* GET game by id /5ce9e7e8fec3f9b50441b1b9 */
 router.get('/:_id', ctrl.getGameById);
 
-router.post('/buy/:id', ctrl.buyGame);
+router.post('/buy/', ctrl.buyGame);
 
 /* Upload endpoint */
 router.post('/upload', ctrl.uploadPicture);
