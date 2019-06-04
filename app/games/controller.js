@@ -1,6 +1,15 @@
 const repository = require('./repository');
 const usersRepository = require('../users/repository');
 
+function find(array, value) {
+
+    for (var i = 0; i < array.length; i++) {
+        if (array[i] === value) return true;
+    }
+
+    return false;
+}
+
 // TODO: поиск по играм по критериям: thematics, genres, online
 
 // TODO: покупка игры: game id req.params, user id req.body, проверить наличие в библиотеке
@@ -9,11 +18,29 @@ const usersRepository = require('../users/repository');
 exports.buyGame = async (req, res, next) => {
     const gameId = req.params.id;
     const userId = req.body._id;
-    if (gameId !== undefined || userId !== undefined) {
+    console.log(gameId);
+    console.log(userId);
+    if (gameId == undefined || userId == undefined) {
         res.send({message: "User or game Id is empty"});
-        next();
+        //next();
     }
     const curLib = await usersRepository.getLibraryByUserId(userId);
+    if (find(curLib.library, gameId)) {
+        res.send({message: "The game was purchased earlier"});
+    }
+    const game = await repository.getGameById(gameId);
+    const user = await usersRepository.getBalanceByUserId(userId);
+    const newBalance = user.balance - game.price;
+    if (newBalance < 0) {
+        res.send({message: "Not enough money"});
+    }
+    await usersRepository.debit(userId, newBalance);
+    // console.log("old balance" + user.balance);
+    // console.log("new balance" + newBalance);
+    await usersRepository.addGameToLibrary(userId, gameId);
+    const data = await usersRepository.getUserById(userId);
+    // console.log(data);
+    res.send({message: "Game has been purchased", data: data})
 };
 
 exports.getAllGames = async (req, res) => {

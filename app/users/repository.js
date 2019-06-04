@@ -13,6 +13,10 @@ exports.getLibraryByUserId = (_id) => Users.findById({_id: _id}, {balance: 0, is
 
 exports.getBalanceByUserId = (_id) => Users.findById({_id: _id}, {library: 0, isAdmin: 0, _id: 0, login: 0, password: 0});
 
+exports.debit = (userId, balance) => Users.findOneAndUpdate({_id: userId}, {balance: balance});
+
+exports.addGameToLibrary = (userId, gameId) => Users.findOneAndUpdate({_id: userId}, {$push: {library: gameId}});
+
 exports.createUser = (user) => Users.create(
     {
         _id: new ObjectId,
