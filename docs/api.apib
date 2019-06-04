@@ -1,0 +1,100 @@
+FORMAT: 1A
+HOST: http://api.cw-backend.blur.tech
+
+# Интернет-магазин игр
+
+Серверная часть курсовой работы по дисциплине Технологии Программирования 4 семестра 2 курса.
+
+### Пользователи [/users]
+
+### Получить пользователя по id [GET/{id}]
+Возвращает всех пользователей массивом объектов
+
++ Parameters
+    + id (string, required) - id пользователя
+
++ Response 200 (application/json)
+
+        {
+            "data": {
+                    "_id":"5cf3f18dc0d594001713cd04",
+                    "login":"1",
+                    "password":"1",
+                    "balance":0,
+                    "library": [
+                                "5cd52869fec3f9b504179f90"
+                    ],
+                    "isAdmin":false
+                 }
+        }
+
+### Авторизация [POST/auth]
+Принимает на вход логин и пароль, если логин и пароль верны возвращает данные пользователя
+
++ Request 200 (application/json)
+
+        {
+            "login": "1",
+            "password": "1"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "data": {
+                    "_id":"5cf3f18dc0d594001713cd04",
+                    "login":"1",
+                    "password":"1",
+                    "balance":0,
+                    "library": [
+                                "5cd52869fec3f9b504179f90"
+                    ],
+                    "isAdmin":false
+                 }
+        }
+
+### Регистрация [POST/reg]
+Принимает на вход логин и пароль и если пользователя с таким логином не существует, то регистрирует его
+
++ Request 200 (application/json)
+
+        {
+            "login": "test",
+            "password": "test"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "data": {
+                    "_id": "5cf6613d139ddc5454e330ce",
+                    "login": "test",
+                    "password": "test",
+                    "balance": 0,
+                    "library": [],
+                    "isAdmin": false
+                 }
+        }
+
++ Response 409 (application/json)
+
+        {
+            "message": "Error",
+            "data": null
+        }
+
+### Библиотека пользователя [GET/library/{id}]
+Возвращает массив купленных пользователем игр
+
++ Parameters
+    + id (string, required) - id пользователя
+
++ Response 200 (application/json)
+
+        {
+            "data": {
+                    "library": [
+                                "5cd52869fec3f9b504179f90"
+                               ]
+                  }
+        }

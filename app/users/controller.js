@@ -39,6 +39,6 @@ exports.createUser = async (req, res) => {
         const data = await repository.createUser(user);
         return res.send({data: data});
     } else {
-        return res.send({message: "Error", data: null});
+        return res.status(409).send({message: "Error", data: null});
     }
 };
