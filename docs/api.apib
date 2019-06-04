@@ -24,6 +24,54 @@ HOST: http://api.cw-backend.blur.tech
 
         {"data":{"download_link":{"linux":null,"macOS":null,"windows":"/files/witcher3.txt"},"photo":"/images/witcher3.png","thematics":["Открытый мир","Ролевая игра","Глубокий сюжет"],"genre":"Ролевая","online":null,"_id":"5cd52869fec3f9b504179f90","name":"The Witcher® 3: Wild Hunt","price":1119,"description":"Когда в Северных королевствах бушует война, вы заключаете величайший контракт своей жизни — отыскать Дитя предназначения, живое оружие, которое может изменить облик мира."}}
 
+### Купить игру [POST/buy/{id}]
+Совершается покупка игры. Списание со счёта цены игры. Проверка куплена ли игра ранее.
+
++ Parameters
+    + id (string, required) - id игры
+
++ Request 200 (application/json)
+
+        {
+            "_id": "5cf50bda42515b00177e830a"
+        }
+
++ Response 200 (application/json)
+
+        {
+            "message": "Game has been purchased",
+            "data": {
+                "balance": 48881,
+                "library": [
+                    "5cd52869fec3f9b504179f90"
+                ],
+                "isAdmin": false,
+                "_id": "5cf50bda42515b00177e830a",
+                "login": "SrgGrch",
+                "password": "1234"
+            }
+        }
+
++ Response 400 (application/json)
+
+        {
+            "message": "User or game Id is empty"
+        }
+
++ Response 402 (application/json)
+
+        {
+            "message": "Not enough money"
+        }
+
++ Response 409 (application/json)
+
+        {
+            "message": "The game was purchased earlier"
+        }
+
+
+
 ### Пользователи [/users]
 
 ### Получить пользователя по id [GET/{id}]
@@ -41,7 +89,25 @@ HOST: http://api.cw-backend.blur.tech
                     "password":"1",
                     "balance":0,
                     "library": [
-                                "5cd52869fec3f9b504179f90"
+                                {
+                                                "download_link": {
+                                                    "linux": null,
+                                                    "macOS": null,
+                                                    "windows": "/files/witcher3.txt"
+                                                },
+                                                "photo": "/images/witcher3.png",
+                                                "thematics": [
+                                                    "Открытый мир",
+                                                    "Ролевая игра",
+                                                    "Глубокий сюжет"
+                                                ],
+                                                "genre": "Ролевая",
+                                                "online": null,
+                                                "_id": "5cd52869fec3f9b504179f90",
+                                                "name": "The Witcher® 3: Wild Hunt",
+                                                "price": 1119,
+                                                "description": "Когда в Северных королевствах бушует война, вы заключаете величайший контракт своей жизни — отыскать Дитя предназначения, живое оружие, которое может изменить облик мира."
+                                            }
                     ],
                     "isAdmin":false
                  }
@@ -113,7 +179,25 @@ HOST: http://api.cw-backend.blur.tech
         {
             "data": {
                     "library": [
-                                "5cd52869fec3f9b504179f90"
+                                {
+                                                "download_link": {
+                                                    "linux": null,
+                                                    "macOS": null,
+                                                    "windows": "/files/witcher3.txt"
+                                                },
+                                                "photo": "/images/witcher3.png",
+                                                "thematics": [
+                                                    "Открытый мир",
+                                                    "Ролевая игра",
+                                                    "Глубокий сюжет"
+                                                ],
+                                                "genre": "Ролевая",
+                                                "online": null,
+                                                "_id": "5cd52869fec3f9b504179f90",
+                                                "name": "The Witcher® 3: Wild Hunt",
+                                                "price": 1119,
+                                                "description": "Когда в Северных королевствах бушует война, вы заключаете величайший контракт своей жизни — отыскать Дитя предназначения, живое оружие, которое может изменить облик мира."
+                                            }
                                ]
                   }
         }
