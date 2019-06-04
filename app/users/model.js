@@ -16,10 +16,11 @@ let userSchema = new Schema({
         type: Number,
         default: 0
     },
-    library: {
-        type: [String],
-        default: null
-    },
+    library:
+        {
+            type: [Schema.Types.ObjectId],
+            default: null
+        },
     isAdmin: {
         type: Boolean,
         default: false

@@ -1,16 +1,20 @@
 const repository = require('./repository');
 
+// TODO: пополнение счёта пользователя
+
 exports.getAllUsers = async (req, res) => {
     const data = await repository.getAllUsers();
     return res.send({data: data});
 };
 
+// FIXME: отдавать не массив id игр, а сами игры
 exports.getUserById = async (req, res) => {
     let id = req.params._id;
     const data = await repository.getUserById(id);
     return res.send({data: data});
 };
 
+// FIXME: отдавать не массив id игр, а сами игры
 exports.getLibraryByUserId = async (req, res) => {
     let id = req.params._id;
     const data = await repository.getLibraryByUserId(id);
@@ -20,9 +24,9 @@ exports.getLibraryByUserId = async (req, res) => {
 exports.authUser = async (req, res) => {
     let login = req.body.login;
     let password = req.body.password;
-    console.log(req.body.login); console.log(password);
+    //console.log(req.body.login); console.log(password);
     const data = await repository.authUser(login, password);
-    console.log(data);
+    //console.log(data);
     return res.send({data: data});
 };
 

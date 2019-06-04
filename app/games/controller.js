@@ -1,7 +1,18 @@
 const repository = require('./repository');
 
+// TODO: поиск по играм по критериям: thematics, genres, online
+
+// TODO: покупка игры: game id req.params, user id req.body, проверить наличие в библиотеке
+//  добавить в библиотеку к пользователю, списать со счёта
+
 exports.getAllGames = async (req, res) => {
     const data = await repository.getAllGames();
+    return res.send({data: data});
+};
+
+exports.getGameById = async (req, res) => {
+    let id = req.params._id;
+    const data = await repository.getGameById(id);
     return res.send({data: data});
 };
 

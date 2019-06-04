@@ -3,6 +3,8 @@ const ObjectId = require('mongoose').Types.ObjectId;
 
 exports.getAllGames = () => Games.find({});
 
+exports.getGameById = (_id) => Games.findById(_id);
+
 exports.insertGame = (game) => Games.create(
     {
         _id: new ObjectId,
