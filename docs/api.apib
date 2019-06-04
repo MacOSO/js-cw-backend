@@ -5,6 +5,25 @@ HOST: http://api.cw-backend.blur.tech
 
 Серверная часть курсовой работы по дисциплине Технологии Программирования 4 семестра 2 курса.
 
+### Игры [/games]
+
+### Получить список всех игр [GET]
+Возвращает всех пользователей массивом объектов
+
++ Response 200 (application/json)
+
+        {"data":[{"download_link":{"linux":null,"macOS":null,"windows":"/files/witcher3.txt"},"photo":"/images/witcher3.png","thematics":["Открытый мир","Ролевая игра","Глубокий сюжет"],"genre":"Ролевая","online":null,"_id":"5cd52869fec3f9b504179f90","name":"The Witcher® 3: Wild Hunt","price":1119,"description":"Когда в Северных королевствах бушует война, вы заключаете величайший контракт своей жизни — отыскать Дитя предназначения, живое оружие, которое может изменить облик мира."},{"download_link":{"linux":null,"macOS":null,"windows":"/files/witcher2.txt"},"photo":"/images/witcher2.png","thematics":["Открытый мир","Ролевая игра","Глубокий сюжет"],"genre":"Ролевая","online":null,"_id":"5ce56188fec3f9b50404c5d0","name":"The Witcher® 2: Assassins of Kings","price":1119,"description":"Пришло время невиданного хаоса. Могущественные силы сталкиваются в борьбе за власть и величие. Северные королевства готовятся к войне. Но даже армии не могут помешать этому заговору, и прольётся кровь…"}]}
+
+### Получить игру по id [GET/{id}]
+Возвращает игру по id
+
++ Parameters
+    + id (string, required) - id игры
+
++ Response 200 (application/json)
+
+        {"data":{"download_link":{"linux":null,"macOS":null,"windows":"/files/witcher3.txt"},"photo":"/images/witcher3.png","thematics":["Открытый мир","Ролевая игра","Глубокий сюжет"],"genre":"Ролевая","online":null,"_id":"5cd52869fec3f9b504179f90","name":"The Witcher® 3: Wild Hunt","price":1119,"description":"Когда в Северных королевствах бушует война, вы заключаете величайший контракт своей жизни — отыскать Дитя предназначения, живое оружие, которое может изменить облик мира."}}
+
 ### Пользователи [/users]
 
 ### Получить пользователя по id [GET/{id}]

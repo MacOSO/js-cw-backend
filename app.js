@@ -23,6 +23,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/* GET home page. */
+app.get('/', function(req, res, next) {
+    res.status(418).send({ status: 'FUCK YOU DIRTY HACKER', message: 'FUCKING COURSE WORK, FUCKING JAVA, FUCKING JAVASCRIPT' });
+});
 app.use('/games', gamesRouter);
 app.use('/users', usersRouter);
 

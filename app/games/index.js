@@ -15,9 +15,4 @@ router.get('/:_id', ctrl.getGameById);
 /* Upload endpoint */
 router.post('/upload', ctrl.uploadPicture);
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.status(418).send({ status: 'FUCK YOU DIRTY HACKER', message: 'FUCKING COURSE WORK, FUCKING JAVA, FUCKING JAVASCRIPT' });
-});
-
 module.exports = router;
