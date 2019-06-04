@@ -1,4 +1,16 @@
 const repository = require('./repository');
+const gamesRepository = require('../games/repository');
+
+const gameRef = async (data) => {
+    let countLib = data.library.length;
+    let newLibrary = [];
+    while(countLib--) {
+        newLibrary.push(await gamesRepository.getGameById(data.library[countLib]));
+        delete data.library[countLib];
+        data['library'][countLib] = newLibrary[countLib];
+    }
+    return data;
+};
 
 // TODO: пополнение счёта пользователя
 
@@ -7,17 +19,17 @@ exports.getAllUsers = async (req, res) => {
     return res.send({data: data});
 };
 
-// FIXME: отдавать не массив id игр, а сами игры
 exports.getUserById = async (req, res) => {
     let id = req.params._id;
-    const data = await repository.getUserById(id);
+    let data = await repository.getUserById(id);
+    data = await gameRef(data);
     return res.send({data: data});
 };
 
-// FIXME: отдавать не массив id игр, а сами игры
 exports.getLibraryByUserId = async (req, res) => {
     let id = req.params._id;
-    const data = await repository.getLibraryByUserId(id);
+    let data = await repository.getLibraryByUserId(id);
+    data = await gameRef(data);
     return res.send({data: data});
 };
 
@@ -25,8 +37,8 @@ exports.authUser = async (req, res) => {
     let login = req.body.login;
     let password = req.body.password;
     //console.log(req.body.login); console.log(password);
-    const data = await repository.authUser(login, password);
-    //console.log(data);
+    let data = await repository.authUser(login, password);
+    // console.log(data);
     return res.send({data: data});
 };
 

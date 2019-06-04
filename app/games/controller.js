@@ -1,9 +1,20 @@
 const repository = require('./repository');
+const usersRepository = require('../users/repository');
 
 // TODO: поиск по играм по критериям: thematics, genres, online
 
 // TODO: покупка игры: game id req.params, user id req.body, проверить наличие в библиотеке
 //  добавить в библиотеку к пользователю, списать со счёта
+
+exports.buyGame = async (req, res, next) => {
+    const gameId = req.params.id;
+    const userId = req.body._id;
+    if (gameId !== undefined || userId !== undefined) {
+        res.send({message: "User or game Id is empty"});
+        next();
+    }
+    const curLib = await usersRepository.getLibraryByUserId(userId);
+};
 
 exports.getAllGames = async (req, res) => {
     const data = await repository.getAllGames();

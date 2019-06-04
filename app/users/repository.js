@@ -11,6 +11,8 @@ exports.checkUserExists = (login) => Users.find({login: login});
 
 exports.getLibraryByUserId = (_id) => Users.findById({_id: _id}, {balance: 0, isAdmin: 0, _id: 0, login: 0, password: 0});
 
+exports.getBalanceByUserId = (_id) => Users.findById({_id: _id}, {library: 0, isAdmin: 0, _id: 0, login: 0, password: 0});
+
 exports.createUser = (user) => Users.create(
     {
         _id: new ObjectId,
