@@ -128,24 +128,61 @@ HOST: http://api.cw-backend.blur.tech
 
 + Request 200 (application/json)
 
-        {
+         {
             "login": "1",
             "password": "1"
+         }
+
++ Response 200 (application/json)
+
+         {
+                     "data": {
+                             "_id":"5cf3f18dc0d594001713cd04",
+                             "login":"1",
+                             "password":"1",
+                             "balance":0,
+                             "library": [
+                                         "5cd52869fec3f9b504179f90"
+                             ],
+                             "isAdmin":false
+                          }
+         }
+
+### Пополенение баланса [POST/users/refill]
+Принимает на вход id пользователя и сумму пополенения. Поля не должны быть пустыми, а сумма пополнения должна быть неотрицательной.
+
++ Request 200 (application/json)
+
+        {
+        	"userId": "5cf3f18dc0d594001713cd04",
+        	"amount": 100
+        }
+
++ Response 400 (application/json)
+
+        {
+            "message": "Amount or userId is empty"
+        }
+
++ Response 404 (application/json)
+
+        {
+            "message": "User not found"
         }
 
 + Response 200 (application/json)
 
         {
             "data": {
-                    "_id":"5cf3f18dc0d594001713cd04",
-                    "login":"1",
-                    "password":"1",
-                    "balance":0,
-                    "library": [
-                                "5cd52869fec3f9b504179f90"
-                    ],
-                    "isAdmin":false
-                 }
+                "balance": 300,
+                "library": [
+                    "5cd52869fec3f9b504179f90"
+                ],
+                "isAdmin": false,
+                "_id": "5cf3f18dc0d594001713cd04",
+                "login": "1",
+                "password": "1"
+            }
         }
 
 ### Регистрация [POST/users/reg]

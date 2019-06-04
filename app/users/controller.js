@@ -17,7 +17,7 @@ exports.refill = async (req, res) => {
     let amount = req.body.amount;
     //console.log(userId);
     //console.log(amount);
-    if (userId === undefined || amount === undefined) return res.send({message: "Amount or userId is empty"});
+    if (userId === undefined || amount === undefined) return res.status(400).send({message: "Amount or userId is empty"});
     let oldBalance = await repository.getBalanceByUserId(userId);
     //console.log(oldBalance);
     if (!oldBalance) return res.status(404).send({message: "User not found"});
