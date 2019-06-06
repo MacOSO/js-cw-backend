@@ -24,6 +24,13 @@ const isHere = (th1, th2) => {
     return here;
 };
 
+const find = (array, value) => {
+    for (let i = 0; i < array.length; i++) {
+        if (array[i] === value) return true;
+    }
+    return false;
+};
+
 exports.search = async (req, res) => {
     const q = req.query.q === undefined ? '*' : req.query.q;
     const online = req.query.online;
@@ -80,24 +87,4 @@ exports.getGameById = async (req, res) => {
     let id = req.params._id;
     const data = await repository.getGameById(id);
     return res.send({data: data});
-};
-
-exports.uploadPicture = (req, res) => {
-    console.log(req.files);
-    if(!req.files)
-    {
-        return res.status(400).send({status: 400, message: 'No files were uploaded.'});
-    }
-
-    let sampleFile = req.files.sampleFile;
-    let type = sampleFile.mimetype;
-
-    if(type !== 'image/jpg') res.status(400).send({status: 400, message: 'You can upload only .jpg pictures.'});
-
-    sampleFile.mv(__dirname + '/public/images/'+sampleFile.md5+'.jpg', function(err) {
-        if (err)
-            return res.status(500).send({status: 500, message: 'Error moving file to server.'});
-
-        res.send('File uploaded!');
-    });
 };
