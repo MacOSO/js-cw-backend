@@ -37,6 +37,9 @@ let gameSchema = new Schema({
         enum : ['Кооператив', 'MMO', 'Мультиплеер', null],
         default: null
     }
-});
+},
+    {
+        versionKey: false
+    });
 
 module.exports = mongoose.model('games', gameSchema);

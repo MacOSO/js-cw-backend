@@ -84,6 +84,78 @@ HOST: http://api.cw-backend.blur.tech
 
         {"data":{"download_link":{"linux":null,"macOS":null,"windows":"/files/witcher3.txt"},"photo":"/images/witcher3.png","thematics":["Открытый мир","Ролевая игра","Глубокий сюжет"],"genre":"Ролевая","online":null,"_id":"5cd52869fec3f9b504179f90","name":"The Witcher® 3: Wild Hunt","price":1119,"description":"Когда в Северных королевствах бушует война, вы заключаете величайший контракт своей жизни — отыскать Дитя предназначения, живое оружие, которое может изменить облик мира."}}
 
+### Добавление игры [POST/games/new]
+Добавляется новая игра.
+
++ Request 200 (application/json)
+
+        {
+                                     "thematics": [
+                                                "Открытый мир",
+                                                "Ролевая игра",
+                                                "Глубокий сюжет"
+                                     ],
+                                     "genre": "Ролевая",
+                                     "name": "Тест",
+                                     "price": 100,
+                                     "description": "Тест"
+        }
+
++ Response 200 (application/json)
+
+                {
+                    "data": {
+                             "download_link": null,
+                             "photo": "/images/nophoto.png",
+                             "thematics": [
+                                        "Открытый мир",
+                                        "Ролевая игра",
+                                        "Глубокий сюжет"
+                             ],
+                             "genre": "Ролевая",
+                             "online": null,
+                             "_id": "5ce56188fec3f9b50404c5d5",
+                             "name": "Тест",
+                             "price": 100,
+                             "description": "Тест"
+                             }
+                }
+
+### Изменение игры [POST/games/new/{id}]
+Изменение данных игры
+
++ Request 200 (application/json)
+
+        {
+        	"name": "Test name 1",
+              "price": 150,
+              "description": "Test description 1",
+              "thematics": ["Test", "Failed"]
+        }
+
++ Response 200 (application/json)
+
+                {
+                    "data": {
+                        "download_link": {
+                            "linux": null,
+                            "macOS": null,
+                            "windows": null
+                        },
+                        "photo": "/images/nophoto.png",
+                        "thematics": [
+                            "Test",
+                            "Failed"
+                        ],
+                        "genre": null,
+                        "online": null,
+                        "_id": "5cf9833cedf9d937bc957f2a",
+                        "name": "Test name 1",
+                        "price": 150,
+                        "description": "Test description 1"
+                    }
+                }
+
 ### Купить игру [POST/games/buy/]
 Совершается покупка игры. Списание со счёта цены игры. Проверка куплена ли игра ранее.
 

@@ -13,4 +13,8 @@ router.get('/:_id', ctrl.getGameById);
 
 router.post('/buy', ctrl.buyGame);
 
+router.post('/new', ctrl.createGame);
+
+router.post('/edit/:id', ctrl.createGame);
+
 module.exports = router;

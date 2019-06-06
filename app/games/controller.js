@@ -88,3 +88,30 @@ exports.getGameById = async (req, res) => {
     const data = await repository.getGameById(id);
     return res.send({data: data});
 };
+
+exports.createGame = async (req, res) => {
+    let game = {
+        name: req.body.name,
+        price: req.body.price,
+        description: req.body.description,
+        thematics: req.body.thematics,
+        genre: req.body.genre,
+        online: req.body.online
+    };
+    let data = await repository.insertGame(game);
+    res.send({data: data});
+};
+
+exports.updateGame = async (req, res) => {
+    let id = req.params.id;
+    let game = {
+        name: req.body.name,
+        price: req.body.price,
+        description: req.body.description,
+        thematics: req.body.thematics,
+        genre: req.body.genre,
+        online: req.body.online
+    };
+    let data = await repository.updateGame(id, game);
+    res.send({data: data});
+};
