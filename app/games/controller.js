@@ -1,16 +1,41 @@
 const repository = require('./repository');
 const usersRepository = require('../users/repository');
 
-function find(array, value) {
+const filter = (data, online, genres, thematics) => {
+    online === 'true' ? online = true : online = false;
+    if (typeof(thematics) === 'string') thematics = new Array(thematics);
+    data = data.filter((game) =>{
+        if (genres === undefined){
+            if (!!game.online === online  && isHere(thematics, game.thematics)) return true
+        } else if (genres.includes(game.genre) && !!game.online === online && isHere(thematics, game.thematics)){
+            return true;
+        }
+        return false;
+    });
+    return data;
+};
 
-    for (var i = 0; i < array.length; i++) {
-        if (array[i] === value) return true;
+const isHere = (th1, th2) => {
+    if (th1 === undefined) return true;
+    let here = false;
+    th1.forEach(item => {
+        if (th2.indexOf(item) !== -1) here = true;
+    });
+    return here;
+};
+
+exports.search = async (req, res) => {
+    const online = req.query.online;
+    const genres = req.query.genres === undefined ? undefined : (req.query.genres).split(',');
+    const thematics = req.query.thematics === undefined ? undefined : (req.query.thematics).split(',');
+    let data = await repository.getAllGames();
+    data = filter(data, online, genres, thematics);
+    if (data.length > 0) {
+        res.send({data: data});
+    } else {
+        res.status(404).send({message: "Games not found"});
     }
-
-    return false;
-}
-
-// TODO: поиск по играм по критериям: thematics, genres, online
+};
 
 exports.buyGame = async (req, res) => {
     const gameId = req.body.gameId;

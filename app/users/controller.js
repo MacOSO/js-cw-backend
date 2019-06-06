@@ -21,7 +21,7 @@ exports.refill = async (req, res) => {
     let oldBalance = await repository.getBalanceByUserId(userId);
     //console.log(oldBalance);
     if (!oldBalance) return res.status(404).send({message: "User not found"});
-    if (amount < 0) return res.send({message: "Wrong refill amount"});
+    if (amount < 0) return res.status(403).send({message: "Wrong refill amount"});
     const data = await repository.debit(userId, oldBalance.balance + amount);
     //console.log(data);
     return res.send({data: data});
