@@ -2,8 +2,6 @@ let express = require('express');
 let router = express.Router();
 let ctrl = require('./controller');
 
-// TODO: get /search?q=
-
 /* GET all files */
 router.get('/', ctrl.getAllGames);
 

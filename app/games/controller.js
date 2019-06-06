@@ -25,10 +25,11 @@ const isHere = (th1, th2) => {
 };
 
 exports.search = async (req, res) => {
+    const q = req.query.q === undefined ? '*' : req.query.q;
     const online = req.query.online;
     const genres = req.query.genres === undefined ? undefined : (req.query.genres).split(',');
     const thematics = req.query.thematics === undefined ? undefined : (req.query.thematics).split(',');
-    let data = await repository.getAllGames();
+    let data = await repository.searchGame(q);
     data = filter(data, online, genres, thematics);
     if (data.length > 0) {
         res.send({data: data});

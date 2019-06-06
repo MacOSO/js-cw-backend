@@ -3,6 +3,11 @@ const ObjectId = require('mongoose').Types.ObjectId;
 
 exports.getAllGames = () => Games.find({});
 
+exports.searchGame = (q) => Games.find({ $or:[
+        { name: { $regex: q, $options: 'i' } },
+        { description: { $regex: q, $options: 'i' } }
+    ]});
+
 exports.getGameById = (_id) => Games.findById(_id);
 
 exports.insertGame = (game) => Games.create(
