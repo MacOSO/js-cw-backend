@@ -35,9 +35,15 @@ exports.getAllUsers = async (req, res) => {
 exports.getUserById = async (req, res) => {
     let id = req.params._id;
     let data = await repository.getUserById(id);
-    let newLibrary = await gameRef(data);
-    console.log(data.library._id);
-    //data['library'] = newLibrary;
+    let newLibrary = JSON.parse(JSON.stringify(await gameRef(data)));
+    data = {
+        _id: data._id,
+        login: data.login,
+        password: data.password,
+        balance: data.balance,
+        isAdmin: data.isAdmin,
+        library: newLibrary
+    };
     return res.send({data: data});
 };
 
