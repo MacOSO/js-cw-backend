@@ -10,7 +10,7 @@ exports.searchGame = (q) => Games.find({ $or:[
 
 exports.getGameById = (_id) => Games.findById(_id);
 
-exports.updateGame = (id, game) => Games.findOneAndUpdate(
+exports.updateGame = (id, game) => Games.updateOne(
     {_id: id},
     {$set:{
             name: game.name,
@@ -20,7 +20,7 @@ exports.updateGame = (id, game) => Games.findOneAndUpdate(
             genre: game.genre,
             online: game.online
     }},
-    {new: true}
+    {new: true, upsert: false}
 );
 
 exports.insertGame = (game) => Games.create(

@@ -35,7 +35,9 @@ exports.getAllUsers = async (req, res) => {
 exports.getUserById = async (req, res) => {
     let id = req.params._id;
     let data = await repository.getUserById(id);
-    data = await gameRef(data);
+    let newLibrary = await gameRef(data);
+    console.log(data.library._id);
+    //data['library'] = newLibrary;
     return res.send({data: data});
 };
 
