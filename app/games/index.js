@@ -15,6 +15,6 @@ router.post('/buy', ctrl.buyGame);
 
 router.post('/new', ctrl.createGame);
 
-router.post('/edit/:id', ctrl.createGame);
+router.post('/edit/:id', ctrl.updateGame);
 
 module.exports = router;
