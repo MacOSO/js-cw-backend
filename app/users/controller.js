@@ -5,11 +5,11 @@ const gameRef = async (data) => {
     let countLib = data.library.length;
     let newLibrary = [];
     while(countLib--) {
-        newLibrary.push(await gamesRepository.getGameById(data.library[countLib]));
-        delete data.library[countLib];
+        let cur = await gamesRepository.getGameById(data.library[countLib]);
+        newLibrary.push(cur);
         data['library'][countLib] = newLibrary[countLib];
     }
-    return data;
+    return newLibrary;
 };
 
 exports.refill = async (req, res) => {
